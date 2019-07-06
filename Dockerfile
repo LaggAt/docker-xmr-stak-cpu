@@ -2,7 +2,7 @@
 # Build image
 ###
 #FROM alpine:edge AS build
-FROM alpine:3.9 AS build
+FROM alpine:3.10.0 AS build
 #FROM alpine:edge
 
 ENV XMR_STAK_VERSION 2.10.4
@@ -47,7 +47,7 @@ RUN apk del --no-cache --purge \
 # Deployed image
 ###
 #FROM alpine:edge
-FROM alpine:3.6
+FROM alpine:3.10.0
 
 WORKDIR /app
 
