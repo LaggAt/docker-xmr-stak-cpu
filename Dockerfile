@@ -25,7 +25,7 @@ RUN apk add --no-cache \
       git
 
 RUN git clone https://github.com/fireice-uk/xmr-stak.git \
-    && cd xmrstak \
+    && cd xmr-stak \
     && git checkout tags/${XMR_STAK_VERSION} -b build  \
     \
     && cmake . -DCUDA_ENABLE=OFF -DOpenCL_ENABLE=OFF -DHWLOC_ENABLE=ON -DXMR-STAK_COMPILE=generic \
