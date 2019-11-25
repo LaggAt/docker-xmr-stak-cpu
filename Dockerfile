@@ -27,7 +27,6 @@ RUN apk add --no-cache \
 RUN git clone https://github.com/fireice-uk/xmr-stak.git \
     && cd xmr-stak \
     && git checkout tags/${XMR_STAK_VERSION} -b build  \
-    && sed -i 's/constexpr double fDevDonationLevel.*/constexpr double fDevDonationLevel = 0.0;/' xmrstak/donate-level.hpp \
     \
     && cmake . -DCUDA_ENABLE=OFF -DOpenCL_ENABLE=OFF -DHWLOC_ENABLE=ON -DXMR-STAK_COMPILE=generic \
     && make -j$(nproc) \
