@@ -30,8 +30,9 @@ RUN git clone https://github.com/fireice-uk/xmr-stak.git \
     \
     && cmake . -DCUDA_ENABLE=OFF -DOpenCL_ENABLE=OFF -DHWLOC_ENABLE=ON -DXMR-STAK_COMPILE=generic \
     && make -j$(nproc) \
+    && ls -la /app \
     \
-    && cp -t /app bin/xmr-stak \
+    && cp -t /app bin/xmr-stak-rx \
     && chmod 777 -R /app
 RUN apk del --no-cache --purge \
       libmicrohttpd-dev \
