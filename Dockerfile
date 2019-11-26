@@ -5,7 +5,7 @@ FROM alpine:edge AS build
 #FROM alpine:3.9 AS build
 #FROM alpine:edge
 
-ENV XMR_STAK_VERSION 2.10.7
+ENV XMR_STAK_VERSION 1.0.0-rx
 
 COPY app /app
 
@@ -27,12 +27,12 @@ RUN apk add --upgrade apk-tools@edge
 RUN git clone https://github.com/fireice-uk/xmr-stak.git \
     && cd xmr-stak \
     && git checkout tags/${XMR_STAK_VERSION} -b build  \
-    && sed -i 's/constexpr double fDevDonationLevel.*/constexpr double fDevDonationLevel = 0.0;/' xmrstak/donate-level.hpp \
     \
     && cmake . -DCUDA_ENABLE=OFF -DOpenCL_ENABLE=OFF -DHWLOC_ENABLE=ON -DXMR-STAK_COMPILE=generic \
     && make -j$(nproc) \
+    && ls -la /app \
     \
-    && cp -t /app bin/xmr-stak \
+    && cp -t /app bin/xmr-stak-rx \
     && chmod 777 -R /app \
     && dos2unix -u /app/docker-entrypoint.sh
 RUN apk del --no-cache --purge \
