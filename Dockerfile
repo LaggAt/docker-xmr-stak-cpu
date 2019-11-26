@@ -1,11 +1,11 @@
 ###
 # Build image
 ###
-#FROM alpine:edge AS build
-FROM alpine:3.9 AS build
+FROM alpine:edge AS build
+#FROM alpine:3.9 AS build
 #FROM alpine:edge
 
-ENV XMR_STAK_VERSION 2.10.4
+ENV XMR_STAK_VERSION 2.10.7
 
 COPY app /app
 
@@ -23,7 +23,7 @@ RUN apk add --no-cache \
       cmake \
       coreutils \
       git
-
+RUN apk add --upgrade apk-tools@edge
 RUN git clone https://github.com/fireice-uk/xmr-stak.git \
     && cd xmr-stak \
     && git checkout tags/${XMR_STAK_VERSION} -b build  \
@@ -33,7 +33,8 @@ RUN git clone https://github.com/fireice-uk/xmr-stak.git \
     && make -j$(nproc) \
     \
     && cp -t /app bin/xmr-stak \
-    && chmod 777 -R /app
+    && chmod 777 -R /app \
+    && dos2unix -u /app/docker-entrypoint.sh
 RUN apk del --no-cache --purge \
       libmicrohttpd-dev \
       openssl-dev \
@@ -46,8 +47,8 @@ RUN apk del --no-cache --purge \
 ###
 # Deployed image
 ###
-#FROM alpine:edge
-FROM alpine:3.6
+FROM alpine:edge
+#FROM alpine:3.6
 
 WORKDIR /app
 
